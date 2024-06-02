@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from themes.pixelstrap.net/pwa/chatzy/group-video-call-received.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 01 Jun 2024 20:45:45 GMT -->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Chatzy">
+    <meta name="keywords" content="Chatzy">
+    <meta name="author" content="Chatzy">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="assets/images/logo/favicon.png" type="image/x-icon">
+    <title>Chatzy App</title>
+    <link rel="apple-touch-icon" href="assets/images/logo/favicon.png">
+    <meta name="theme-color" content="#01AA85">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Chatzy">
+    <meta name="msapplication-TileImage" content="assets/images/logo/favicon.png">
+
+    <meta name="msapplication-TileColor" content="#FFFFFF">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!--Google font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap"
+        rel="stylesheet">
+
+    <!-- iconsax css -->
+    <link rel="stylesheet" type="text/css" href="assets/css/vendors/iconsax.css">
+
+    <!-- bootstrap css -->
+    <link rel="stylesheet" id="rtl-link" type="text/css" href="assets/css/vendors/bootstrap.css">
+
+    <!-- template css -->
+    <link rel="stylesheet" id="change-link" type="text/css" href="assets/css/style.css">
+</head>
+
+<body>
+    <header id="header" class="main-header p-0">
+        <div class="custom-container">
+            <div class="header-panel video-header border-0 pb-0">
+                <div class="d-flex align-items-center gap-2">
+                    <a href="group-chat.html">
+                        <i class="iconsax icon-btn" data-icon="chevron-left"> </i>
+                    </a>
+                    <h3 class="text-white" id="user-count">You and 5 others</h3>
+                </div>
+                <h5 class="call-timing" id="call-timing">00:00</h5>
+            </div>
+        </div>
+    </header>
+    
+<style>
+    
+#join-wrapper{
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+#username{
+    padding: 20px;
+    font-size: 18px;
+    border-radius: 10px;
+    border:none;
+    margin: 10px;
+}
+
+.volume-icon{
+    height:20px;
+    width:20px;
+}
+
+#join-btn {
+
+    background-color: #1f1f1f8e;
+    border: none;
+    color: #fff;
+    font-size: 22px;
+    padding: 20px 30px;
+    cursor: pointer;
+}
+
+
+#user-streams {
+    display: flex;
+    grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+    gap: 3px;
+    height: 100%;
+}
+
+
+.video-player {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.video-containers {
+    position: relative;
+    padding: 0;
+    margin: 0;
+    background-color: #1f1f1f8e;
+    border-radius: 10px;
+    flex: 1 1 30%;
+
+}
+
+.user-uid {
+    display: flex;
+    align-items: center;
+    column-gap: 1em;
+    background-color: #1f1f1f8e;
+    padding: 5px 10px;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    z-index: 9999;
+    margin: 0;
+    font-size: 18px;
+}
+
+
+#footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: none;
+    justify-content: center;
+    column-gap: 1em;
+    width: 100%;
+    height: 100px;
+}
+
+.icon-wrapper {
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+}
+
+
+
+@media screen and (max-width:1400px) {
+    main {
+        width: 90%;
+        margin: 0 auto;
+    }
+}
+.story-image{
+    display: block;
+    padding: 10px;
+    border-radius: 100px;
+    border: 3px solid rgb(71, 138, 158);
+    background-color: rgb(8, 161, 128);
+    width: 50px;
+    justify-content: space-around;
+    gap: 20px;
+}
+.story-list{
+    justify-content: space-around;
+    gap: 20px;
+}
+.story-types-box.active .story-image {
+            background-color: red; /* Example: Change background color */
+        }
+
+        .story-types-box.active .control {
+            opacity: 0.7; /* Example: Change opacity */
+        }
+</style>
+    <!-- call section starts -->
+    <section class="video-calling pt-0">
+        <div class="video-call-wrapper ratio_square">
+            <div class="video-call-screen  w-100">
+                <div class="background-screen">
+                    <div id="user-streams" ></div>
+                    
+                    
+                </div>
+                <i class="iconsax video-icon" style="color: black;" data-icon="video-slash"> </i>
+                <i class="iconsax icon" data-icon="mic-slash-2"> </i>
+            </div>
+            <div id="join-wrapper">
+                <input id="username" type="text" placeholder="Enter your name..." />
+                <button id="join-btn">Join Stream</button>
+            </div>
+        </div>
+        
+    </section>
+    <!-- call section end -->
+    <div id="footer">
+
+        <ul class="story-list">
+            <li>
+                <a href="javascript:void(0)" id="camera-btn" class="story-types-box">
+                    <div class="story-image">
+                        <img class="control" src="assets/video.svg" alt="call">
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void(0)" id="mic-btn" class="story-types-box">
+                    <div class="story-image">
+                        <img class="control" src="assets/microphone.svg" alt="video">
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void(0)" id="leave-btn" class="story-types-box">
+                    <div class="story-image">
+                        <img class="control" src="assets/leave.svg" alt="video">
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+
+    <!-- iconsax js -->
+    <script src="assets/js/iconsax.js"></script>
+
+    <!-- bootstrap js -->
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+
+    <!-- sticky-header js -->
+    <script src="assets/js/sticky-header.js"></script>
+
+    <!-- script js -->
+    <script src="assets/js/script.js"></script>
+
+    <!-- template Setting js -->
+    <script src="assets/js/template-setting.html"></script>
+    <script src="https://download.agora.io/sdk/release/AgoraRTC_N.js"></script>
+    <script src="videocall.js"></script>
+</body>
+<script>
+   document.addEventListener('DOMContentLoaded', () => {
+            const buttons = document.querySelectorAll('.story-types-box');
+
+            buttons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Toggle active class on the clicked button
+                    button.classList.toggle('active');
+                });
+            });
+        });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        let startTime;
+        let timerInterval;
+        const callTimingElement = document.getElementById('call-timing');
+        const joinButton = document.getElementById('join-btn');
+
+        const startCallTimer = () => {
+            startTime = Date.now();
+            timerInterval = setInterval(updateCallTime, 1000);
+        };
+
+        const updateCallTime = () => {
+            const elapsedTime = Date.now() - startTime;
+            const minutes = Math.floor(elapsedTime / 60000);
+            const seconds = Math.floor((elapsedTime % 60000) / 1000);
+            callTimingElement.textContent = `${pad(minutes)}:${pad(seconds)}`;
+        };
+
+        const pad = (num) => {
+            return num < 10 ? '0' + num : num;
+        };
+
+        const stopCallTimer = () => {
+            clearInterval(timerInterval);
+        };
+
+        // Start the timer when the join button is clicked
+        joinButton.addEventListener('click', () => {
+            startCallTimer();
+            document.getElementById('join-wrapper').style.display = 'none';
+            document.getElementById('footer').style.display = 'flex';
+        });
+
+        // Stop the timer when the call ends (this is just a placeholder, you need to call this function when the call actually ends)
+        // stopCallTimer();
+    });
+</script>
+
+
+<!-- Mirrored from themes.pixelstrap.net/pwa/chatzy/group-video-call-received.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 01 Jun 2024 20:45:45 GMT -->
+</html>

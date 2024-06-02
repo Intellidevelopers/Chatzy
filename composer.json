@@ -1,0 +1,7 @@
+{
+    "require": {
+        "twilio/sdk": "^8.1",
+        "vonage/client": "^4.0",
+        "guzzlehttp/guzzle": "^7.8"
+    }
+}
